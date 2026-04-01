@@ -6,17 +6,19 @@
 *You'll quickly get hands-on experience with:*
 - *Launching an isolated Claw environment on Nutanix's Policy Gateway & Remote MCP*
 - *Running safe, policy-controlled AI agents with OpenClaw+Openshell*
-*Estimated time to complete: 40-60 minutes. If you have a preferred IDE, you may also launch it directly from Brev once your environment is up.*
+
+*Estimated time to complete: ~40-60 minutes.*
 
 
 # Resources
-**TODO:: Resource Outline Finalize**
 + [Brev](https://developer.nvidia.com/brev)
 + [Nemoclaw](https://docs.nvidia.com/nemoclaw/latest/about/overview.html#)
-  - If you wish to revisit this lab independently or deploy in your own environment, see the [Nemoclaw Quick Start documentation](https://docs.nvidia.com/nemoclaw/latest/get-started/quickstart.html) for deployment specifications.
+  - If you wish to revisit this lab independently or deploy in your own environment, see the Nemoclaw [quick start documentation](https://docs.nvidia.com/nemoclaw/latest/get-started/quickstart.html) for deployment specifications.
 + [Openshell](https://docs.nvidia.com/openshell/latest/about/overview.html)
-+ Nutanix Gateway
-+ Nutanix Remote MCP
++ [Nutanix Enterprise AI](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Enterprise-AI-v2_6:Nutanix-Enterprise-AI-v2_6)
+  - [Unified Endpoints](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Enterprise-AI:top-unified-endpoints-c.html)
+  - [Remote MCP Server](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Enterprise-AI:top-agentic-tools-and-data-c.html)
+  - [API Keys](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Enterprise-AI:top-nai-api-keys-c.html)
 
 
 ## Getting Started
