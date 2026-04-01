@@ -3,7 +3,10 @@
 *This hands-on lab will take you through deploying Nemoclaw via Brev with Nutanix's "Unified Endpoints" & "Remote MCP Servers" for extending and governing agent inference & tools functionality.*
 
 *After completing this hands on session you'll have a better understanding of:*
-  + **TODO::Learning objectives**
+  + Setup a working Claw running in a sandbox environment
+  + Extend Nutanix Unified Endpoint for Inference
+  + Develop skills and extend tools by adding MCP functionality via Nutanix Remote MCP Server
+  + Govern tools for deployed claw to restrict access
 
 *Estimated completion time: ~40-60 minutes.*
 
@@ -27,7 +30,9 @@ In order to get started with this lab you'll need access to Brev and have gone t
 2. A terminal: (macOS Terminal, Linux shell, or Windows WSL)
    - For macOS: Homebrew installed
 
-You can find these instructions [here](https://docs.nvidia.com/brev/latest/getting-started/quickstart).
+You can find detailed instructions [here](https://docs.nvidia.com/brev/latest/getting-started/quickstart).
+
+
 
 
 ### 1. Deploy the Launchable
@@ -35,8 +40,6 @@ You can find these instructions [here](https://docs.nvidia.com/brev/latest/getti
 Go to [Brev Deploy](https://brev.nvidia.com/launchable/deploy/now?launchableID=env-3Azt0aYgVNFEuz7opyx3gscmowS) and click **Deploy Launchable**.
 
 ### 2. Open Code Server
-**TODO:: Change preference to use the inbrowser UI**
-
 Once deployed, open the **Code Server** tab. The NeMoClaw automated installer will start immediately.
 
 > **This startup takes approximately 15 minutes.** You'll see a progress sequence in the terminal — let it run to completion.
@@ -88,7 +91,7 @@ This is the bulk of the wait. The onboarding wizard runs seven sub-steps:
 During **[2/7] Configuring inference**, the installer will prompt you interactively. Enter:
 
 1. **Choose option:** `3` (Other OpenAI-compatible endpoint)
-2. **Base URL:** `https://passage-arthritis-sessions-lawsuit.trycloudflare.com/enterpriseai/v1`
+2. **Base URL:** (will be provided)
 3. **API key:** (will be provided)
 4. **Model name:** `gpt-oss-120b`
 
@@ -436,6 +439,14 @@ Use Hugging Face MCP to find the top Meta Llama instruct models.
 
 Notice the difference — without MCP, the assistant can no longer search Hugging Face live. It falls back to its training data or tells you it can't access external tools. This is the value MCP adds: giving the model real-time access to APIs and data sources it couldn't reach on its own.
 
-## Troubleshooting Steps
+## Lab complete
+*TODO:: Add completion steps callout*
+
+## Appendix - Troubleshooting Steps
+
+## Did I properly setup the Infernece
+```bash
+openshell inference get
+```
 
 **TODO:: Outline common troubleshooting steps**
