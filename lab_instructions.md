@@ -20,7 +20,6 @@
   - [Remote MCP Server](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Enterprise-AI:top-agentic-tools-and-data-c.html)
   - [API Keys](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Enterprise-AI:top-nai-api-keys-c.html)
 
-
 ## Getting Started
 ### 0. Getting setup with Brev
 In order to get started with this lab you'll need access to Brev and have gone thorugh setup of the Brev CLI. This requires:
@@ -31,9 +30,6 @@ In order to get started with this lab you'll need access to Brev and have gone t
    - For macOS: Homebrew installed
 
 You can find detailed instructions [here](https://docs.nvidia.com/brev/latest/getting-started/quickstart).
-
-
-
 
 ### 1. Deploy the Launchable
 
@@ -72,7 +68,6 @@ Builds and links the NemoClaw CLI from source.
 ```
 
 #### Phase 3 — Onboarding (longest step)
-**TODO:: Look into where to put `env` vars**
 
 This is the bulk of the wait. The onboarding wizard runs seven sub-steps:
 
@@ -119,6 +114,17 @@ OpenClaw connection details
 ### 5. Open the chat UI
 
 Copy the full URL (including the `#token=...` part) and paste it into your browser to open the OpenClaw chat.
+
+### 6. Setting up `env` variables for subsequent steps
+**TODO:: Look into where to put `env` vars**
+We'll use this `base_url` for both the inference and mcp endpoints.
+```bash
+export NAI_ENDPOINT_BASE_URL="your-url-here"
+```
+
+```bash
+export HF_MCP_KEY="your-key-here"
+```
 
 ### 6. Set up SSH and make the config writable
 
@@ -194,7 +200,7 @@ Explain what a transformer model is in 3 sentences.
 ```
 
 ```text
-What are the most popular open-source LLMs right now?
+Tell me about the architecture of Nemotron 3 Super 120b from NVIDIA?
 ```
 
 Notice that the model can answer from its training data, but it **cannot** search Hugging Face, look up live model rankings, or fetch real documentation. That's what we'll add next.
@@ -214,7 +220,12 @@ This allows the sandbox to reach the Hugging Face MCP endpoint and Hugging Face 
 ```bash
 openshell policy get --full my-assistant > policy-full.txt
 python3 - <<'PY'
+import os
 from pathlib import Path
+
+endpoint_url = os.environ.get("NAI_ENDPOINT_BASE_URL")
+if not endpoint_url:
+    raise SystemExit("Set NAI_ENDPOINT_BASE_URL first: export NAI_ENDPOINT_BASE_URL='your-base-url'")
 
 raw = Path("policy-full.txt").read_text()
 yaml_text = raw.split("---", 1)[1].strip() if "---" in raw else raw.strip()
@@ -223,7 +234,7 @@ entry = """
   huggingface_mcp_route:
     name: huggingface_mcp_route
     endpoints:
-      - host: passage-arthritis-sessions-lawsuit.trycloudflare.com
+      - host: {endpoint_url}
         port: 443
         protocol: rest
         enforcement: enforce
@@ -261,7 +272,11 @@ elif "huggingface_mcp_route:" not in yaml_text:
 Path("policy.yaml").write_text(yaml_text)
 print("Wrote policy.yaml")
 PY
-openshell policy set --policy ./policy.yaml --wait my-assistant
+
+# Only run the set command if the previous (python) command succeeded
+if [ $? -eq 0 ]; then
+    openshell policy set --policy ./policy.yaml --wait my-assistant
+fi
 ```
 
 You want to see:
@@ -276,12 +291,6 @@ Wrote policy.yaml
 
 This creates and uploads the `mcporter.json` file that tells the sandbox how to connect to the NAI-routed Hugging Face MCP server, including the endpoint URL and auth token.
 
-Set the API key (will be provided):
-
-```bash
-export HF_MCP_KEY="your-key-here"
-```
-
 Then run:
 
 ```bash
@@ -294,9 +303,13 @@ key = os.environ.get("HF_MCP_KEY")
 if not key:
     raise SystemExit("Set HF_MCP_KEY first: export HF_MCP_KEY='your-key'")
 
+endpoint_url = os.environ.get("NAI_ENDPOINT_BASE_URL")
+if not endpoint_url:
+    raise SystemExit("Set NAI_ENDPOINT_BASE_URL first: export NAI_ENDPOINT_BASE_URL='your-base-url'")
+
 Path("config").mkdir(exist_ok=True)
 Path("config/mcporter.json").write_text(
-    f'{{"mcpServers":{{"huggingface-nai":{{"baseUrl":"https://passage-arthritis-sessions-lawsuit.trycloudflare.com/enterpriseai/mcp/huggingface","headers":{{"Authorization":"Bearer {key}"}}}}}},"imports":[]}}'
+    f'{{"mcpServers":{{"huggingface-nai":{{"baseUrl":"https://{endpoint_url}/enterpriseai/mcp/huggingface","headers":{{"Authorization":"Bearer {key}"}}}}}},"imports":[]}}'
 )
 print("Wrote config/mcporter.json")
 PY
