@@ -1,8 +1,9 @@
 # 🦞 Nutanix .Next Lab Session - "Enterprise Strategy for Deploying and Governing Openclaw"
 
-*This hands-on lab will guide you through deploying Nemoclaw via Brev with Nutanix's "Unified Endpoints" & "Remote MCP" for extending and governing agent inference & tool functionality.*
+*This hands-on lab will take you through deploying Nemoclaw via Brev with Nutanix's "Unified Endpoints" & "Remote MCP Servers" for extending and governing agent inference & tools functionality.*
 
-**TODO:: Re-work high level goals**
+*After completing this hands on session you'll have a better understanding of:*
+  + **TODO::Learning objectives**
 
 *Estimated completion time: ~40-60 minutes.*
 
@@ -19,7 +20,15 @@
 
 ## Getting Started
 ### 0. Getting setup with Brev
-**TODO:: Look into Brev CLI and other steps here**
+In order to get started with this lab you'll need access to Brev and have gone thorugh setup of the Brev CLI. This requires:
+
+1. A Brev account:
+    - During the lab session, a QR code will be provided for invite access to an organization with credits
+2. A terminal: (macOS Terminal, Linux shell, or Windows WSL)
+   - For macOS: Homebrew installed
+
+You can find these instructions [here](https://docs.nvidia.com/brev/latest/getting-started/quickstart).
+
 
 ### 1. Deploy the Launchable
 
