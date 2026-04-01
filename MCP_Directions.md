@@ -1,12 +1,34 @@
-# OpenClaw Workshop: NAI-Routed Hugging Face MCP
+# Nutanix .Next OpenClaw Workshop: NAI-Routed Hugging Face MCP
+**TODO:: Look into adding banner**
+
+*This hands-on lab will guide you through deploying and managing a secure, sandboxed agent runtime using Nemoclaw atop Nutanix (**TODO:: Acutal callouts for Policy**).*
+
+*You'll quickly get hands-on experience with:*
+- *Launching an isolated Claw environment on Nutanix's Policy Gateway & Remote MCP*
+- *Running safe, policy-controlled AI agents with OpenClaw+Openshell*
+*Estimated time to complete: 40-60 minutes. If you have a preferred IDE, you may also launch it directly from Brev once your environment is up.*
+
+
+# Resources
+**TODO:: Resource Outline Finalize**
++ [Brev](https://developer.nvidia.com/brev)
++ [Nemoclaw](https://docs.nvidia.com/nemoclaw/latest/about/overview.html#)
+  - If you wish to revisit this lab independently or deploy in your own environment, see the [Nemoclaw Quick Start documentation](https://docs.nvidia.com/nemoclaw/latest/get-started/quickstart.html) for deployment specifications.
++ [Openshell](https://docs.nvidia.com/openshell/latest/about/overview.html)
++ Nutanix Gateway
++ Nutanix Remote MCP
+
 
 ## Getting Started
+### 0. Getting setup with Brev
+**TODO:: Look into Brev CLI and other steps here**
 
 ### 1. Deploy the Launchable
 
 Go to [Brev Deploy](https://brev.nvidia.com/launchable/deploy/now?launchableID=env-3Azt0aYgVNFEuz7opyx3gscmowS) and click **Deploy Launchable**.
 
 ### 2. Open Code Server
+**TODO:: Change preference to use the inbrowser UI**
 
 Once deployed, open the **Code Server** tab. The NeMoClaw automated installer will start immediately.
 
@@ -40,6 +62,7 @@ Builds and links the NemoClaw CLI from source.
 ```
 
 #### Phase 3 — Onboarding (longest step)
+**TODO:: Look into where to put `env` vars**
 
 This is the bulk of the wait. The onboarding wizard runs seven sub-steps:
 
@@ -405,3 +428,7 @@ Use Hugging Face MCP to find the top Meta Llama instruct models.
 ```
 
 Notice the difference — without MCP, the assistant can no longer search Hugging Face live. It falls back to its training data or tells you it can't access external tools. This is the value MCP adds: giving the model real-time access to APIs and data sources it couldn't reach on its own.
+
+## Troubleshooting Steps
+
+**TODO:: Outline common troubleshooting steps**
