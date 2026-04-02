@@ -153,7 +153,6 @@ ready
 ### 7. Prepare the workspace
 
 The chat needs memory and persona files to exist on startup. Without these, the model gets stuck trying to read missing files and never replies.
-TODO:: Add extended instructions on each of the `.md` files and their typical roels in OpenClaw
 ```bash
 ssh openshell-my-assistant 'python3 - <<'\''PY'\''
 from pathlib import Path
