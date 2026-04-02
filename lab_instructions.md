@@ -201,7 +201,7 @@ Explain what a transformer model is in 3 sentences.
 ```
 
 ```text
-Tell me about the architecture of Nemotron 3 Super 120b from NVIDIA?
+Tell me about the architecture of Nemotron 3 Super 120b from NVIDIA.
 ```
 
 Notice that the model can answer from its training data, but it **cannot** search Hugging Face, look up live model rankings, or fetch real documentation. That's what we'll add next.
@@ -420,7 +420,7 @@ Everything is set up. Now test it in the chat UI.
 4. Try these prompts:
 
 ```text
-Use Hugging Face MCP to explain text generation in Transformers.
+Use Hugging Face MCP to tell me about the architecture of Nemotron 3 Super 120b from NVIDIA.
 ```
 
 ```text
@@ -442,7 +442,7 @@ Once the instructor confirms the tools have been disabled, go back to the chat U
 3. Try the same prompts again:
 
 ```text
-Use Hugging Face MCP to explain text generation in Transformers.
+Use Hugging Face MCP to tell me about the architecture of Nemotron 3 Super 120b from NVIDIA.
 ```
 
 ```text
@@ -452,7 +452,7 @@ Use Hugging Face MCP to find the top Meta Llama instruct models.
 Notice the difference — without MCP, the assistant can no longer search Hugging Face live. It falls back to its training data or tells you it can't access external tools. This is the value MCP adds: giving the model real-time access to APIs and data sources it couldn't reach on its own.
 
 ## Lab complete
-*TODO:: Add completion steps callout*
+Please share feedback & issues for Nemoclaw inside the official [Nemoclaw Github Repo](https://github.com/NVIDIA/NemoClaw/issues) as well as Openshell inside the official [Openshell Github Repo](https://github.com/NVIDIA/Openshell).
 
 ## Appendix - Troubleshooting Steps
 
@@ -475,7 +475,19 @@ This will run validation of that endpoint as a part of the process. If it succee
 cd ~/NemoClaw/ | bash install.sh
 ```
 
+## I get ```origin not allowed (open the Control UI from the gateway host or allow it in gateway.controlUi.allowedOrigins)``` when opening the claw securelink to the Openclaw Web UI.
+You can still access the chat and interact within a `tui`.
 
+```bash
+nemoclaw my-assistant connect
+## If you used a different name for `my-assistant` you can run `nemoclaw list` and find the proper name
+```
 
-## I get `origin not allowed (open the Control UI from the gateway host or allow it in gateway.controlUi.allowedOrigins)` when opening the claw securelink
-**TODO:: Figure out consistent fix...**
+Then run the `tui`
+```bash
+openclaw tui
+```
+You should now be connect to a TUI environemnt to run calls.
+
+## General troubleshooting
+As this is an early alpha, re-running the `install.sh` or even relaunch the `brev depoyable` might work in resolving your problem.
