@@ -116,14 +116,15 @@ OpenClaw connection details
 Copy the full URL (including the `#token=...` part) and paste it into your browser to open the OpenClaw chat.
 
 ### 6. Setting up `env` variables for subsequent steps
-**TODO:: Look into where to put `env` vars**
 We'll use this `base_url` for both the inference and mcp endpoints.
 ```bash
 export NAI_ENDPOINT_BASE_URL="your-url-here"
+#Example -> export NAI_ENDPOINT_BASE_URL="vast-removed-slight-monetary.trycloudflare.com"
 ```
 
 ```bash
 export HF_MCP_KEY="your-key-here"
+#Example -> export HF_MCP_KEY="afa1f13b-eeb4-423d-abd4-f456e0c88e95"
 ```
 
 ### 6. Set up SSH and make the config writable
@@ -152,7 +153,7 @@ ready
 ### 7. Prepare the workspace
 
 The chat needs memory and persona files to exist on startup. Without these, the model gets stuck trying to read missing files and never replies.
-
+TODO:: Add extended instructions on each of the `.md` files and their typical roels in OpenClaw
 ```bash
 ssh openshell-my-assistant 'python3 - <<'\''PY'\''
 from pathlib import Path
@@ -234,7 +235,7 @@ entry = """
   huggingface_mcp_route:
     name: huggingface_mcp_route
     endpoints:
-      - host: {endpoint_url}
+      - host: """+ endpoint_url + """
         port: 443
         protocol: rest
         enforcement: enforce
@@ -272,8 +273,6 @@ elif "huggingface_mcp_route:" not in yaml_text:
 Path("policy.yaml").write_text(yaml_text)
 print("Wrote policy.yaml")
 PY
-
-# Only run the set command if the previous (python) command succeeded
 if [ $? -eq 0 ]; then
     openshell policy set --policy ./policy.yaml --wait my-assistant
 fi
