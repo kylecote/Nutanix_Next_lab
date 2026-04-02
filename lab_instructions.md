@@ -456,9 +456,26 @@ Notice the difference — without MCP, the assistant can no longer search Huggin
 
 ## Appendix - Troubleshooting Steps
 
-## Did I properly setup the Infernece
+## I couldn't get my `#token=<value>`...
+Run the following to connect into your
 ```bash
-openshell inference get
+nemoclaw my-assistant connect
+## If you used a different name for `my-assistant` you can run `nemoclaw list` and find the proper name
 ```
 
-**TODO:: Outline common troubleshooting steps**
+Once connected you can run the following and grab the token.
+```bash
+cat ./config/openclaw.json | grep token
+```
+
+## Did I properly setup the infernece gateway?
+If you aren't sure you properly setup inference. You can re-run the `install.sh` and setup Phase 3 Step(3) from above with your inference endpoint.
+This will run validation of that endpoint as a part of the process. If it succeeds you properly setup inference gateway.
+```bash
+cd ~/NemoClaw/ | bash install.sh
+```
+
+
+
+## I get `origin not allowed (open the Control UI from the gateway host or allow it in gateway.controlUi.allowedOrigins)` when opening the claw securelink
+**TODO:: Figure out consistent fix...**
