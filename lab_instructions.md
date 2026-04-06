@@ -22,12 +22,10 @@
 
 ## Getting Started
 ### 0. Getting setup with Brev
-In order to get started with this lab you'll need access to Brev and have gone thorugh setup of the Brev CLI. This requires:
+In order to get started with this lab you'll need access to Brev. This requires:
 
 1. A Brev account:
-    - During the lab session, a QR code will be provided for invite access to an organization with credits
-2. A terminal: (macOS Terminal, Linux shell, or Windows WSL)
-   - For macOS: Homebrew installed
+    - During the lab session, a QR code will be provided for invite access to an organization with credits which you'll need to complete onboarding & account creation.
 
 You can find detailed instructions [here](https://docs.nvidia.com/brev/latest/getting-started/quickstart).
 
