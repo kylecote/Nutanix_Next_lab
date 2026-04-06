@@ -81,12 +81,13 @@ This is the bulk of the wait. The onboarding wizard runs seven sub-steps:
 | **[7/7] Policy presets** | Applies default network policies (accept the suggested presets) |
 
 ### 3. Enter the inference endpoint
+> **Why:** We want to monitor and control model usage through the inference gateway so we choose to utilize an OpenAI-compatible endpoint on Nutanix AI gateway to allow us to make model choice, load balancing, and telemetry decisions within that platform.
 
 During **[2/7] Configuring inference**, the installer will prompt you interactively. Enter:
 
 1. **Choose option:** `3` (Other OpenAI-compatible endpoint)
-2. **Base URL:** (will be provided)
-3. **API key:** (will be provided)
+2. **Base URL:** `TODO::(will be provided)`
+3. **API key:** `TODO::(will be provided)`
 4. **Model name:** `gpt-oss-120b`
 
 After you enter these, the rest of the install continues automatically.
@@ -111,11 +112,13 @@ OpenClaw connection details
 ```
 
 ### 5. Open the chat UI
+> **Why:** We'll utilize this chat for interfacing with our claw.
 
 Copy the full URL (including the `#token=...` part) and paste it into your browser to open the OpenClaw chat.
+*If this fails to load with
 
 ### 6. Setting up `env` variables for subsequent steps
-Why: We'll use this `NAI_ENDPOINT_BASE_URL` for both the inference and mcp endpoints and `HF_MCP_KEY` for authentication piece for the remote MCP server.
+> **Why:** *We'll use this `NAI_ENDPOINT_BASE_URL` for both the inference and mcp endpoints and `HF_MCP_KEY` for authentication piece for the remote MCP server.*
 
 ```bash
 export NAI_ENDPOINT_BASE_URL="your-url-here"
@@ -128,7 +131,7 @@ export HF_MCP_KEY="your-key-here"
 ```
 
 ### 6. Set up SSH and make the config writable
-Why: We want to overwrite our config options within openclaw.json config which by default is read-only. We'll need to do this in order to setup config options in the future.
+> **Why:** *We want to overwrite our config options within openclaw.json config which by default is read-only. We'll need to do this in order to setup config options in the future.*
 
 The default config at `/sandbox/.openclaw/openclaw.json` is read-only. Run these commands in the **Code Server terminal** to set up SSH access, copy the config to a writable location, and restart the gateway pointing at the copy.
 
@@ -152,8 +155,8 @@ ready
 ```
 
 ### 7. Prepare the workspace
+> **Why:** *We need to establish the core persona of the agent, and prepare assets that will be used like the agent, i.e. `memory.md` for keeping track of context, so that it can successfully run. The chat needs memory and persona files to exist on startup. Without these, the model gets stuck trying to read missing files and never replies.*
 
-The chat needs memory and persona files to exist on startup. Without these, the model gets stuck trying to read missing files and never replies.
 ```bash
 ssh openshell-my-assistant 'python3 - <<'\''PY'\''
 from pathlib import Path
@@ -187,21 +190,18 @@ workspace-ready
 ```
 
 ### 8. Try the chat (before MCP)
+> **Why:** *Test the chat before adding any tools and understand the base model capabilities and validate it's knowledge cutoff.*
 
 Before adding any tools, take a few minutes to chat with the baseline assistant. This is OpenClaw running with just the LLM — no MCP tools connected yet.
 
 Try some general questions:
 
 ```text
-What is Hugging Face?
+Tell me about the architecture of Nemotron 3 Super 120b from NVIDIA.
 ```
 
 ```text
 Explain what a transformer model is in 3 sentences.
-```
-
-```text
-Tell me about the architecture of Nemotron 3 Super 120b from NVIDIA.
 ```
 
 Notice that the model can answer from its training data, but it **cannot** search Hugging Face, look up live model rankings, or fetch real documentation. That's what we'll add next.
@@ -209,12 +209,14 @@ Notice that the model can answer from its training data, but it **cannot** searc
 ---
 
 ## Adding MCP Tools
+> **Why:** *We can to add tools that can be extended without updating an image of an agent in the future and can be goverened independently of the agent environment.*
 
 These steps connect the Hugging Face MCP server so the assistant can search docs, models, and papers live. Run them in the **Code Server terminal**, then go back to the chat UI to test.
 
 You can safely run these steps more than once.
 
 ### 9. Patch the sandbox network policy
+> **Why:** *This extend the Policy Engine discussed in the presentation to allow egress rules to not only reach out to hugging face domains but also our remote MCP destination.*
 
 This allows the sandbox to reach the Hugging Face MCP endpoint and Hugging Face websites. The sandbox blocks all outbound traffic by default, so without this the MCP calls would be denied.
 
@@ -287,6 +289,7 @@ Wrote policy.yaml
 ```
 
 ### 10. Upload the MCP server config
+> **Why:** *This sets up the final MCP config and pushes them to the agent sandbox.*
 
 This creates and uploads the `mcporter.json` file that tells the sandbox how to connect to the NAI-routed Hugging Face MCP server, including the endpoint URL and auth token.
 
@@ -324,6 +327,7 @@ Uploading ./config -> sandbox:/sandbox/config
 ```
 
 ### 11. Install mcporter inside the sandbox
+> **Why:** *Now we need to install the `mcporter` npm package to execute tools via the cli within that sandbox.*
 
 The skill commands use `npx mcporter call ...` to invoke MCP tools. Since the sandbox blocks most outbound traffic, `npx` can't download mcporter on the fly — it needs to be pre-installed.
 
@@ -339,6 +343,7 @@ mcporter-ready
 ```
 
 ### 12. Install the Hugging Face skill
+> **Why:** *Now we have the runtime within the sandbox configured, we need to give the agent context of the skill to be able to leverage that run time effectively for Hugging Face related tasks. This is done by establishing the `SKILL.md` and placing that within the `skill/` directory in the agent sandbox.*
 
 This installs a skill file that teaches the OpenClaw agent how to call the Hugging Face MCP tools. When you ask about Hugging Face topics in chat, the agent reads this skill and knows which command to run.
 
@@ -394,8 +399,9 @@ ready
 ```
 
 ### 13. Restart the gateway
+> **Why:** *In order for our changes to take place, the gateway needs to be restarted such that it has context of policy changes and skill changes to execute appropriately.*
 
-This restarts the OpenClaw gateway so it picks up the new config, policy, and skill files. The gateway is what connects the chat UI to the model and tools.
+This restarts the OpenClaw gateway so it picks up the new config, policy, and skill files. The gateway is what connects the chat UI/tui to the model and tools.
 
 ```bash
 ssh openshell-my-assistant 'openclaw gateway stop >/dev/null 2>&1 || true && OPENCLAW_CONFIG_PATH=/sandbox/config/openclaw.json nohup openclaw gateway run > /tmp/gateway.log 2>&1 &'
@@ -411,8 +417,9 @@ LISTEN ... [::1]:18789 ...
 ```
 
 ### 14. Test it with MCP
+> **Why:** *Validate the E2E of policy changes, skills additions, and gateway restart have all been applied by testing if the tools are now leverage to get proper information for questions outside of the knowledge cutoff.*
 
-Everything is set up. Now test it in the chat UI.
+Now test it in the chat UI.
 
 1. Go back to the chat UI in your browser.
 2. Refresh the page.
@@ -432,6 +439,7 @@ Use Hugging Face MCP to find recent papers about diffusion transformers.
 ```
 
 ### 15. See what happens without MCP
+> **Why:** *We now want to "de claw" the claw by removing remote MCP capabilities to illustrate you can govern them to all of the deployed claws configured to that server.
 
 > **Instructor step:** The instructor will now disable the MCP tools.
 
