@@ -86,9 +86,9 @@ This is the bulk of the wait. The onboarding wizard runs seven sub-steps:
 During **[2/7] Configuring inference**, the installer will prompt you interactively. Enter:
 
 1. **Choose option:** `3` (Other OpenAI-compatible endpoint)
-2. **Base URL:** `TODO::(will be provided)`
-3. **API key:** `TODO::(will be provided)`
-4. **Model name:** `gpt-oss-120b`
+2. **Base URL:** `https://delivered-vancouver-discussed-joining.trycloudflare.com/enterpriseai/v1`
+3. **API key:** `8afa4988-8e79-422e-a09a-ff113259c4e7`
+4. **Model name:** `uep-gpt-oss-120b`
 
 After you enter these, the rest of the install continues automatically.
 
@@ -121,13 +121,11 @@ Copy the full URL (including the `#token=...` part) and paste it into your brows
 > **Why:** *We'll use this `NAI_ENDPOINT_BASE_URL` for both the inference and mcp endpoints and `HF_MCP_KEY` for authentication piece for the remote MCP server.*
 
 ```bash
-export NAI_ENDPOINT_BASE_URL="your-url-here"
-#Example -> export NAI_ENDPOINT_BASE_URL="vast-removed-slight-monetary.trycloudflare.com"
+export NAI_ENDPOINT_BASE_URL="delivered-vancouver-discussed-joining.trycloudflare.com"
 ```
 
 ```bash
-export HF_MCP_KEY="your-key-here"
-#Example -> export HF_MCP_KEY="afa1f13b-eeb4-423d-abd4-f456e0c88e95"
+export HF_MCP_KEY="afa1f13b-eeb4-423d-abd4-f456e0c88e95"
 ```
 
 ### 6. Set up SSH and make the config writable
