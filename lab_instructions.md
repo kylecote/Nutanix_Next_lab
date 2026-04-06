@@ -99,7 +99,7 @@ When complete, you'll see a summary like this:
 ```text
   ──────────────────────────────────────────────────
   Sandbox      my-assistant (Landlock + seccomp + netns)
-  Model        gpt-oss-120b (Other OpenAI-compatible endpoint)
+  Model        uep-gpt-oss-120b (Other OpenAI-compatible endpoint)
   ──────────────────────────────────────────────────
 ```
 
