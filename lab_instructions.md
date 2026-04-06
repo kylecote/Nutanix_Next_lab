@@ -3,10 +3,11 @@
 *This hands-on lab will take you through deploying Nemoclaw via Brev with Nutanix's "Unified Endpoints" & "Remote MCP Servers" for extending and governing agent inference & tools functionality.*
 
 *After completing this hands on session you'll have a better understanding of:*
-  + Setup a working Claw running in a sandbox environment
-  + Extend Nutanix Unified Endpoint for Inference
-  + Develop skills and extend tools by adding MCP functionality via Nutanix Remote MCP Server
-  + Govern tools for deployed claw to restrict access
+  1. Setup Brev NemoClaw Launchable
+  2. Run through initial NemoClaw onboard
+  3. Extend Nutanix AI Gateway for Inference
+  4. Develop skills and extend tools by adding MCP functionality via Nutanix Remote MCP Server
+  5. Govern tools for deployed claw to restrict access
 
 *Estimated completion time: ~40-60 minutes.*
 
@@ -114,7 +115,8 @@ OpenClaw connection details
 Copy the full URL (including the `#token=...` part) and paste it into your browser to open the OpenClaw chat.
 
 ### 6. Setting up `env` variables for subsequent steps
-We'll use this `base_url` for both the inference and mcp endpoints.
+Why: We'll use this `NAI_ENDPOINT_BASE_URL` for both the inference and mcp endpoints and `HF_MCP_KEY` for authentication piece for the remote MCP server.
+
 ```bash
 export NAI_ENDPOINT_BASE_URL="your-url-here"
 #Example -> export NAI_ENDPOINT_BASE_URL="vast-removed-slight-monetary.trycloudflare.com"
@@ -126,6 +128,7 @@ export HF_MCP_KEY="your-key-here"
 ```
 
 ### 6. Set up SSH and make the config writable
+Why: We want to overwrite our config options within openclaw.json config which by default is read-only. We'll need to do this in order to setup config options in the future.
 
 The default config at `/sandbox/.openclaw/openclaw.json` is read-only. Run these commands in the **Code Server terminal** to set up SSH access, copy the config to a writable location, and restart the gateway pointing at the copy.
 
@@ -134,7 +137,7 @@ openshell sandbox ssh-config my-assistant >> ~/.ssh/config
 ssh openshell-my-assistant 'mkdir -p /sandbox/config && cp /sandbox/.openclaw/openclaw.json /sandbox/config/openclaw.json && chmod 600 /sandbox/config/openclaw.json && openclaw gateway stop >/dev/null 2>&1 || true && OPENCLAW_CONFIG_PATH=/sandbox/config/openclaw.json nohup openclaw gateway run > /tmp/gateway.log 2>&1 &'
 ```
 
-Check it:
+Check you've setup ssh and openclaw is running on the proper port.
 
 ```bash
 ssh openshell-my-assistant 'test -f /sandbox/config/openclaw.json && ss -ltnp 2>/dev/null | grep 18789 && echo ready'
