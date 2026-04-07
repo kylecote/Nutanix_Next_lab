@@ -115,7 +115,8 @@ OpenClaw connection details
 > **Why:** We'll utilize this chat for interfacing with our claw.
 
 Copy the full URL (including the `#token=...` part) and paste it into your browser to open the OpenClaw chat.
-*If this fails to load with
+
+*If this fails to load with an error. You can always launch the assistant within the CodeServer by running `nemoclaw my-assistant connect` in your terminal which will connect to the sandboxed environment. Then run `openclaw tui` to interface with your claw via a terminal user interface.*
 
 ### 6. Setting up `env` variables for subsequent steps
 > **Why:** *We'll use this `NAI_ENDPOINT_BASE_URL` for both the inference and mcp endpoints and `HF_MCP_KEY` for authentication piece for the remote MCP server.*
