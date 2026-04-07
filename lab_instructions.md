@@ -4,7 +4,7 @@
 
 *After completing this hands on session you'll have a better understanding of:*
   1. Setup Brev NemoClaw Launchable
-  2. Run through initial NemoClaw onboard
+  2. Run NemoClaw Onboard
   3. Extend Nutanix AI Gateway for Inference
   4. Develop skills and extend tools by adding MCP functionality via Nutanix Remote MCP Server
   5. Govern tools for deployed claw to restrict access
