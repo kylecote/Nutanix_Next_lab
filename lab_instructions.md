@@ -496,5 +496,27 @@ openclaw tui
 ```
 You should now be connect to a TUI environemnt to run calls.
 
+## When opening claw web UI I get `gateway connect failed: GatewayClientRequestError: pairing required`
+
+You might be able to run the following to approve failed device state resolution. This is done within the codeserver:
+```bash
+
+#Connect in to your sandbox
+nemoclaw my-assistant connect
+
+#Check gateway health
+openclaw gateway health
+
+#Get current gateway status
+openclaw gateway status
+
+#List connected devices
+openclaw devices list
+
+#If a device that shows a device in pending
+openclaw devices approve <device_id>
+# Example-> openclaw devices approve faf88eab-c379-4112-8685-14e677c6be5a
+```
+
 ## General troubleshooting
 As this is an early alpha, re-running the `install.sh` or even relaunch the `brev depoyable` might work in resolving your problem.
