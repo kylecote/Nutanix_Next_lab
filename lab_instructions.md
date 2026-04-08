@@ -1,5 +1,7 @@
 # 🦞 Nutanix .Next Lab Session - "Enterprise Strategy for Deploying and Governing Openclaw"
 
+# NOTICE - THESE INSTRUCTIONS WILL BE CURRENT APRIL 10th 2026
+
 *This hands-on lab will take you through deploying Nemoclaw via Brev with Nutanix's "Unified Endpoints" & "Remote MCP Servers" for extending and governing agent inference & tools functionality.*
 
 *After completing this hands on session you'll have a better understanding of:*
