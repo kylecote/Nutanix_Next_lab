@@ -30,16 +30,43 @@ In order to get started with this lab you'll need access to Brev. This requires:
 
 You can find detailed instructions [here](https://docs.nvidia.com/brev/latest/getting-started/quickstart).
 
-### 1. Deploy the Launchable
+### 1. Deploy the NemoClaw Launchable
 
-Go to [Brev Deploy](https://brev.nvidia.com/launchable/deploy/now?launchableID=env-3Azt0aYgVNFEuz7opyx3gscmowS) and click **Deploy Launchable**.
+Go to [Brev Deploy](https://brev.nvidia.com/launchable/deploy/now?launchableID=env-3Azt0aYgVNFEuz7opyx3gscmowS) and click **Deploy NemoClaw**.
 
-### 2. Open Code Server
-Once deployed, open the **Code Server** tab. The NeMoClaw automated installer will start immediately.
+You will see a status indicator at the top of the page with following phases:
+1. Deploy CPU
+2. VM Mode
+3. ...
 
-> **This startup takes approximately 15 minutes.** You'll see a progress sequence in the terminal — let it run to completion.
+Wait for it to complete and hit the **View Instance**
 
-The installer runs through three main phases:
+
+### 2. Open NemoClaw Server
+Once deployed, and you're on the instance view. open the **NemoClaw Server** via the NemoClaw button on the right hand side of the instance page.
+
+This will take you to ->
+```text
+https://<my-claw-instance domain>.brevlab.com/onboard
+```
+which cotains a **Connect AI** setup.
+
+1. Select NVIDIA Cloud
+2. Enter `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` for the inference API key
+3. Hit Create Agent
+    - This will run the first install and if done successfully will show "Agent Created Successfully"
+4. Hit "Back to Overview"
+
+This will take you to the `https://<my-claw-instance domain>.brevlab.com/dashboard` page where you will execute the rest of this lab.
+
+### 2.1 Start VM Terminal & Run `nemoclaw onboard`
+Click the "VM Terminal" which will launch a modal with an interactive terminal.
+
+Run
+```bash
+nemoclaw onboard
+```
+ and follow the install instructions runs through three main phases:
 
 #### Phase 1 — Node.js
 
@@ -85,7 +112,6 @@ This is the bulk of the wait. The onboarding wizard runs seven sub-steps:
 
 During **[2/7] Configuring inference**, the installer will prompt you interactively. Enter:
 
-0. Inference API Key`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`
 1. **Choose option:** `3` (Other OpenAI-compatible endpoint)
 2. **Base URL:** `https://delivered-vancouver-discussed-joining.trycloudflare.com/enterpriseai/v1`
 3. **API key:** `8afa4988-8e79-422e-a09a-ff113259c4e7`
@@ -110,6 +136,11 @@ Followed by the OpenClaw connection URL:
 OpenClaw connection details
   Sandbox: my-assistant
   URL: https://openclaw0-XXXXX.brevlab.com#token=...
+```
+### 4. Open the VM Terminal and kill the old sandboxed agent
+> **Why:** Initial setup had setup the agent and our second run of `nemoclaw onboard` kicked off another. This is causing port contention.
+```bash
+openshell sandbox delete agent
 ```
 
 ### 5. Open the chat UI
