@@ -85,6 +85,7 @@ This is the bulk of the wait. The onboarding wizard runs seven sub-steps:
 
 During **[2/7] Configuring inference**, the installer will prompt you interactively. Enter:
 
+0. Inference API Key`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`
 1. **Choose option:** `3` (Other OpenAI-compatible endpoint)
 2. **Base URL:** `https://delivered-vancouver-discussed-joining.trycloudflare.com/enterpriseai/v1`
 3. **API key:** `8afa4988-8e79-422e-a09a-ff113259c4e7`
